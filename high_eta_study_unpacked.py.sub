@@ -1,0 +1,8 @@
+universe = vanilla
+arguments = "$(argument)"
+output = submit01.out
+error = submit01.err
+log = submit01.log
++JobFlavour = "espresso"
+queue
+
