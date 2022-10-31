@@ -29,14 +29,10 @@ def head():
 infile = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/rates/rate_calculation_unpacked.root")
 nFiles = 0
 
-
 nums = np.zeros(3)
 denom = 0
-NUM_JOBS = 20.
 
-
-
-#Create PDF canvas for overlaying ideal and Run2 pt-reso plots
+#Create PDF canvas for overlaying ideal and Run2 pt-distribution plots
 canvas = TCanvas('pt_1D' , 'pt_1D', 700,700)
 
 gStyle.SetOptStat(0)
@@ -51,8 +47,12 @@ leg = TLegend(0.63, 0.7, 0.83, 0.78)
 leg.SetMargin(0.5)
 leg.SetFillStyle(0)
 for offset in range(-2, 1):
+
+  #1D pt distribution plot
   plot = infile.Get('pt_1D_%d' % offset)
   denominator = infile.Get('bx_den')
+
+  #scale by the number of tracks in that bx
   plot.Scale( 1 / denominator.GetBinContent(offset + 3))
 
   leg.AddEntry(plot, 'BX %d' % offset, 'p')
@@ -68,9 +68,6 @@ for offset in range(-2, 1):
   plot.SetMarkerStyle(20)
 
   plot.SetMarkerSize(1.3)
-
-  #Set height of plot depending on maximum data-point
-  # plot.GetYaxis().SetRangeUser(0,plot.GetMaximum() * 1.2)
 
   #Draw plots to canvas
 
@@ -91,7 +88,7 @@ del canvas
 
 
 
-#Create PDF canvas for overlaying ideal and Run2 pt-reso plots
+#Create PDF canvas for overlaying ideal and Run2 mode-distribution plots
 canvas = TCanvas('mode_1D' , 'mode_1D', 700,700)
 
 gStyle.SetOptStat(0)
@@ -100,7 +97,6 @@ gStyle.SetLegendTextSize(0.018);
 
 gPad.SetGridy(1)
 gPad.SetGridx(1)
-#gPad.SetLogy(1)
 
 leg = TLegend(0.13, 0.7, 0.33, 0.78)
 leg.SetMargin(0.5)
@@ -108,6 +104,8 @@ leg.SetFillStyle(0)
 for offset in range(-2, 1):
   plot = infile.Get('mode_1D_%d' % offset)
   denominator = infile.Get('bx_den')
+
+  #normalize plot by number of tracks in that BX
   plot.Scale(1 / denominator.GetBinContent(offset + 3))
 
   leg.AddEntry(plot, 'BX %d' % offset, 'p')
@@ -123,9 +121,6 @@ for offset in range(-2, 1):
   plot.SetMarkerStyle(20)
 
   plot.SetMarkerSize(1.3)
-
-  #Set height of plot depending on maximum data-point
-  # plot.GetYaxis().SetRangeUser(0,plot.GetMaximum() * 1.2)
 
   #Draw plots to canvas
 
@@ -145,40 +140,37 @@ canvas.SaveAs("plots/rates/pdfs/mode_1D.pdf" % ())
 del canvas
 
 
-
+#Draw all the other plots to a PDF
 for key in infile.GetListOfKeys():
     name = key.GetName()
     plot = infile.Get(name)
 
     if 'pt_1D' in name: continue
+
+    #get incidence of all tracks across all BXs
     if 'den' in name: denom = plot.Integral()
+
+    #Get incidence of tracks per BX
     if 'num' in name:
       offset = int(name.split(';')[0].split('_')[-1])
       nums[offset + 2] = plot.Integral()
-      print(offset)
 
+    #Normalize plots
     if 'high_eta_bx' in name:
       denominator = infile.Get('bx_den')
       plot.Divide(denominator)
     if 'bx_rpc' in name: 
       denominator = infile.Get('bx_den')
       plot.Divide(denominator)
-
     if 'high_eta_mode' in name:
       offset = int(name.split(';')[0].split('_')[-1])
       denominator = infile.Get("mode_den_%d" % offset)
       plot.Divide(denominator)
 
-    # if 'high_eta_pt' in name:
-    #   offset = int(name.split(';')[0].split('_')[-1])
-    #   denominator = infile.Get("pt_den_%d" % offset)
-    #   plot.Divide(denominator)
-
-
+    #Draw these to PDF
     canvas = TCanvas(plot.GetName() , plot.GetName(), 700,700)
 
     gStyle.SetOptStat(0)
-    #gPad.SetLogz()
 
     plot.Draw("colz")
     plot.GetXaxis().SetTitle("#eta")
@@ -188,9 +180,9 @@ for key in infile.GetListOfKeys():
 
     canvas.SaveAs("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/rates/pdfs/" + name + ".pdf")
 
-
-print("BX = 0 Efficiency: " + str(nums[2] / denom))
-print("BX = -1 Efficiency: " + str(nums[1] / denom))
-print("BX = -2 Efficiency: " + str(nums[0] / denom))
+#Print rates of different BXs
+print("BX = 0 Rate: " + str(nums[2] / denom))
+print("BX = -1 Rate: " + str(nums[1] / denom))
+print("BX = -2 Rate: " + str(nums[0] / denom))
 
 del infile

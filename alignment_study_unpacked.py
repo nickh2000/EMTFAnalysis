@@ -11,26 +11,13 @@ import argparse
 
 ''' This script exists to access all hits and tracks in events for the purpose of analyzing potential Run 3 misalignments'''
 
-def cms_latex():
-  cms_label = TLatex()
-  cms_label.SetTextSize(0.04)
-  cms_label.DrawLatexNDC(0.1, 0.92, "#bf{ #font[22]{CMS} #font[72]{Efficiency Studies}}");
-  return cms_label
-
-
-def head():
-  header = TLatex()
-  header.SetTextSize(0.03)
-  header.DrawLatexNDC(0.63, 0.92, "#sqrt{s} = 13.6 TeV, Run 3 Data");
-  return header
-
-
+#Configure input arguments
+#num_jobs: split our input files into n different processes
+#index: the index of the current running process, defines which chunk of input files to fetch
 parser = argparse.ArgumentParser()
 parser.add_argument("-n", "--num_jobs", required=False)
 parser.add_argument("-i", "--index", required = False)
 args = parser.parse_args()
-
-
 
 ## Configuration settings
 MAX_FILE =  -1   ## Maximum number of input files (use "-1" for unlimited)
@@ -38,11 +25,10 @@ MAX_EVT  = -1       ## Maximum number of events to process
 PRT_EVT  = 10000     ## Print every Nth event
 
 #Specify which datasets to use
+#They must be set mutually-exclusively, if none are True, Run2 data is used
 IDEAL = False
 ZERO_BIAS = False
 RUN3 = True
-
-
 
 MAX_dR = .1 #Proximity for track matching
 s6_chambers = [33, 34, 35, 36, 1, 2] #projections from chambers to sector 6 require some fudging since they aren't contiguous
@@ -63,7 +49,7 @@ sum_plots_1d = [] #sums the number of hits in a given phi bin for normalization
 #histogram of pt-resolutions, indexed by pt-range, eta-region, endcap, and modes of tracks
 reso_histo = np.zeros((len(pt_ranges) + 1, len(eta_ranges), 2, len(modes)), dtype=object)
 
-#reso plots are indexed by pt_ranges
+#plot average pt_resolution in space
 for i, bound in enumerate(pt_ranges):
     reso_plots.append(TH2D('pt_resolution_2d_%d_%d%s' % 
     (bound[0],
@@ -89,7 +75,7 @@ for i, bound in enumerate(pt_ranges):
     "_ideal" if IDEAL else ""
     ), '', 4, -3.14159, 3.14159))
 
-    #resolution gaussian hisograms are also indexed by eta ranges, endcaps, and track modes
+    #resolution gaussian hisograms are also indexed by eta ranges, endcaps, and track modes (These end up getting used more)
     for j, bound_eta in enumerate(eta_ranges):
         for endcap in range(2):
             for k in range(len(modes)):
@@ -131,12 +117,12 @@ for endcap in range(2):
 
 
 
-
+#split up run-files to parallelize code in condor_submit.py or ./multi-job.bash
 if args.num_jobs:
     INDEX = int(args.index)
     NUM_JOBS = int(args.num_jobs)
 
-#the gaussian mean of phi_diff (per chamber/sector), and find difference in these chamber/sector means between stations
+#the gaussian mean of phi_diff between reco-cscSegments and hits (per chamber/sector), and find difference in these chamber/sector means between stations
 #this will give the total misaligned delta phi for station-station transitions
 station_station_plot_chamber = np.zeros(shape=(2, 4, 4, 3), dtype=object) #gaussian mean projected per chamber
 station_station_plot = np.zeros(shape=(2, 4, 4, 3), dtype=object) #gaussian mean projected per sector
@@ -146,7 +132,7 @@ for endcap in range(2):
     for station1 in range(4):
         for station2 in range(station1 + 1, 4):
             for ring in range(3):
-                station_station_plot[endcap][station1][station2][ring][charge] = TH1D('sts_e%d_(%d,%d)_r%d' % (endcap, station1 + 1, station2 + 1, ring + 1), '', 6, 1, 7)
+                station_station_plot[endcap][station1][station2][ring] = TH1D('sts_e%d_(%d,%d)_r%d' % (endcap, station1 + 1, station2 + 1, ring + 1), '', 6, 1, 7)
                 station_station_plot[endcap][station1][station2][ring].GetYaxis().SetTitle('#Delta#phi_{%d} - #Delta#phi_{%d}' % (station2 + 1, station1 + 1))
                 station_station_plot[endcap][station1][station2][ring].GetXaxis().SetTitle("Sector")
                 station_station_plot[endcap][station1][station2][ring].SetTitle("#Delta#phi_{%d%d}, Endcap %d, Ring %d" %
@@ -165,7 +151,7 @@ for endcap in range(2):
                 ring + 1))
             
 
-
+#if we are parallelizing, use temporary chunked-outfiles
 if args.num_jobs:
   try: out_file =  TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/alignment_study_unpacked%d.root" % (INDEX), 'create')
   except: out_file =  TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/alignment_study_unpacked%d.root" % (INDEX), 'recreate')
@@ -173,7 +159,8 @@ else:
   out_file = TFile('plots/alignment/alignment_study_unpacked_single.root', 'recreate')
 
 #Determine whether to use ZeroBias dataset and ideal geometry look-up tables
-
+#These folders are collections of EMTFNTuples, with cscSegments, re-emulated&unpacked hits, tracks enabled
+#CMSSW Produceder for EMTFNTuples is found here: https://github.com/eyigitba/EMTFTools/tree/master/EMTFNtuple
 if ZERO_BIAS:
     if not IDEAL:
         folder = "/eos/user/n/nhurley/ZeroBias/EMTFNtuple_Run3_ZeroBias_data_13p6TeV_Run2Alignment/220918_123516/0000/"
@@ -188,16 +175,18 @@ elif not ZERO_BIAS:
         folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_Run3Alignment_2022C_v5/220925_185603/0000/"
   
 
-#Get all of the event files in the directory
-nFiles = 0
 
+nFiles = 0
+#Get all of the event files in the directory
 files = Popen(['ls', folder], stdout=PIPE).communicate()[0].split()
 
+#If using parallelization, get chunk of input files to use for this batch
 if args.num_jobs and args.index:
     file_list = files[INDEX * len(files[:MAX_FILE]) / NUM_JOBS : (INDEX + 1) * len(files[:MAX_FILE]) / NUM_JOBS]
 else:
     file_list = files[0:MAX_FILE]
 
+#Add input files to event-tree
 for file in file_list:
     if not '.root' in file: continue
     file_name = "%s%s" % (folder, file)
@@ -215,7 +204,8 @@ for event in range(evt_tree.GetEntries()):
             print('alignment_study_unpacked.py: Processing Job #%d, Event #%d' % (INDEX, event))
         else: print('alignment_study_unpacked.py: Processing Event #%d' % (event))
 
-    #Analyze all hits for phi_diff plots
+    #Analyze all hits for phi_diff plots: Compare reconstructed CSCPhi to unpacked tracker-Hit Phi
+    #This section is commented because Unpacked Hit Matching is not yet incorporated into EMTFNtuples
     # for hit_ref in range(evt_tree.emtfUnpHit_size):
         
     #     #Exclude neighbor hits
@@ -296,19 +286,6 @@ for event in range(evt_tree.GetEntries()):
             elif (track_phi < -3.14159): track_phi += 2*3.14159
 
             
-            ##########This section can be used to check alignment##################################
-            # for unp_track in range(evt_tree.emtfUnpTrack_size):
-            #     unp_track_eta = evt_tree.emtfUnpTrack_eta[unp_track]
-            #     unp_track_phi = evt_tree.emtfUnpTrack_phi[unp_track]
-            #     unp_track_phi *= 3.14159 / 180.0
-            #     if (unp_track_phi > 3.14159): unp_track_phi -= 2*3.14159
-            #     elif (unp_track_phi < -3.14159): unp_track_phi += 2*3.14159
-
-            #     if h.CalcDR( track_eta, track_phi, unp_track_eta, unp_track_phi) < .2:
-            #         if unp_track_phi != track_phi:
-            #             print("Unpacked phi: " + str(unp_track_phi) + ", Re-emulated phi: " + str(track_phi))
-            #         break
-
             new_dr = h.CalcDR( track_eta, track_phi, probe_eta, probe_phi)
 
             #If best track is unassigned or new track is closer to muon than the best track, then re-assign best-track
@@ -336,13 +313,14 @@ for event in range(evt_tree.GetEntries()):
                     sum_plots_1d[i].Fill(probe_phi)
 
 
-                #PT gaussian histrograms are also indexed by mode, eta region, and endcap
+                #1D PT gaussian histrograms are also indexed by mode, eta region, and endcap (ultimately more important for analysis)
                 for j, bound_eta in enumerate(eta_ranges):
                     if bound_eta[0] < abs(probe_eta) < bound_eta[1]:
                         for k, mode in enumerate(modes):
                             if evt_tree.emtfUnpTrack_mode[track] in mode:
                                 reso_histo[i][j][probe_eta > 0][k].Fill(precision)
-                                
+
+        #Don't cut put for at last index of plot-collection                   
         for j, bound_eta in enumerate(eta_ranges):
                 if bound_eta[0] < abs(probe_eta) < bound_eta[1]:
                     for k, mode in enumerate(modes):
@@ -355,7 +333,6 @@ for endcap in range(2):
     for station in range(4):
         for ring in range(3):
             phi_diff_plot[endcap][station][ring].Write()
-
 
 
 

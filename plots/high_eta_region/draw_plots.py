@@ -10,7 +10,8 @@ import os
 import argparse
 
 
-''' This script exists to access all hits and tracks in events for the purpose of analyzing potential Run 3 misalignments'''
+''' This script draw high_eta_study.root histograms to PDFs
+    Overlays efficiency w.r.t. phi plots in high-eta-region for different geometries'''
 
 def cms_latex():
   cms_label = TLatex()
@@ -26,11 +27,14 @@ def head():
   return header
 
 
-infile_R2 = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/high_eta_region/high_eta_study_phv3.root")
-infile_custom = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/high_eta_region/high_eta_study_ref_2.root")
+infile_R2 = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/high_eta_region/high_eta_study_reverse_v3.root")
+#infile_R2 = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/high_eta_region/high_eta_study_phv3.root")
+#infile_custom = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/high_eta_region/high_eta_study_custom_vTen.root")
+infile_custom = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/high_eta_region/high_eta_study_custom_vEleven.root")
 nFiles = 0
 
 
+#Overlay efficiencies in high eta region w.r.t. phi
 for endcap in range(2):
 
   gStyle.SetOptStat(0)
@@ -65,8 +69,6 @@ for endcap in range(2):
   leg.AddEntry(histo_custom, 'Custom Geometry', 'p')
   leg.SetMargin(0.5)
   leg.SetFillStyle(0)
-
-  
 
   gPad.SetGridy(1)
   gPad.SetGridx(1)
@@ -104,16 +106,17 @@ for endcap in range(2):
   histo_custom.GetYaxis().SetRangeUser(0, maximum * 1.2)
 
 
-  # histo_R2.GetXaxis().SetRangeUser(-3.14159, 3.14159)
-  # histo_custom.GetXaxis().SetRangeUser(-3.14159, 3.14159)
-
+  #Title and header
   cms_label = cms_latex()
   header = head()
 
+  #Set labels depending on endcap
+  if endcap == 1:
+    header.DrawLatexNDC(0.4, 0.53, "P_{T} < 22 GeV, 2.2 < #eta < 2.4");
+  else:
+    header.DrawLatexNDC(0.4, 0.53, "P_{T} < 22 GeV, -2.4 < #eta < -2.2");
 
-  header.DrawLatexNDC(0.4, 0.83, "P_{T} < 22 GeV, 2.2 < #eta < 2.4");
-
-
+  #Draw overall average efficiency of geometry in high-eta region
   header.DrawLatexNDC(0.2, 0.63, "#mu_{R2} = %6.4f" % (average_R2));
   header.DrawLatexNDC(0.2, 0.59, "#mu_{Custom} = %6.4f" % (average_custom));
 
@@ -122,10 +125,13 @@ for endcap in range(2):
   canvas.SaveAs("plots/high_eta_region/pdfs/%s.pdf" % (PLOT_NAME.replace(" ", "")))
   del canvas
 
+
+#Draw all other PDFs
 for key in infile.GetListOfKeys():
     name = key.GetName()
     plot = infile.Get(name)
 
+    #Placeholder labels, can change with conditionals depending on plot
     plot.GetXaxis().SetTitle("Phi");
     plot.GetYaxis().SetTitle("L1T Efficiency");
     plot.GetYaxis().SetRangeUser(0.00001,1.2);
@@ -133,6 +139,8 @@ for key in infile.GetListOfKeys():
 
     canvas = TCanvas(name, name, 700,700)
 
+
+    #different draw settings for error plots
     if 'err' in name: plot.Draw("A P C")
     else: plot.Draw("g P C")
 
@@ -148,8 +156,6 @@ for key in infile.GetListOfKeys():
 
     leg =TLegend(0.4,0.8,0.88,0.88);
 
-    # leg.AddEntry(plot, "L1 pT (prompt) > 22 GeV, eta < -2.2")
-    # leg.Draw("same P")
     
     #Write PDF's for error efficiency plots
     canvas.SaveAs("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/high_eta_region/pdfs/" + name + ".pdf")

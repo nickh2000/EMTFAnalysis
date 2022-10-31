@@ -1,6 +1,9 @@
 
 import math
 
+
+
+''' This was not written by me (NH), it has been helpfil mainly for the CalcDR function'''
 def HitsMatch( Hit1, Hit2 ):
 
 	if ( Hit1.BX() == Hit2.BX() and Hit1.Station() == Hit2.Station() and Hit1.Sector() == Hit2.Sector() and

@@ -5,7 +5,7 @@ from ROOT import *
 import numpy as np
 from array import *
 
-'''This script is generally used to combine multiple generated plots into a single PDF'''
+'''This script is generally used to combine pt-resolution plots and graph them on a single PDF'''
 def cms_latex():
   cms_label = TLatex()
   cms_label.SetTextSize(0.04)
@@ -23,11 +23,9 @@ def head():
 
 
 #plots indexed by pt-range, eta-region, and mode
-#pt_ranges = ["10_20", "0_5", "5_10", "20_50", "0_50", "anypt", "0_20"]
-pt_ranges = ["20_50"]
+pt_ranges = ["10_20", "0_5", "5_10", "20_50", "0_50", "anypt", "0_20"]
 eta_ranges = ["1_1", "1_2", "2_2"]
-#modes = [range(16), [11, 13, 14, 15], [7, 9, 10, 11, 13, 14, 15], [7], [9], [10], [11], [13], [14], [15]]
-modes = [[15]]
+modes = [range(16), [11, 13, 14, 15], [7, 9, 10, 11, 13, 14, 15], [7], [9], [10], [11], [13], [14], [15]]
 
 infile_ideal = TFile("plots/alignment/alignment_study.root")
 infile_R2 = TFile("plots/alignment/alignment_study_unpacked.root")
@@ -44,14 +42,13 @@ for pt in pt_ranges:
 
         #Get plots from Ideal and R2Geometry files
         reso_histo_R2 = infile_R2.Get(PLOT_NAME + ";1")
-
-        
         reso_histo_ideal = infile_ideal.Get(PLOT_NAME + ";1")
         
 
+
+        #normalize the pt-resolution plots to more easily compare Run2 geometry data to Run3 geometry data
         R2_integral = reso_histo_R2.Integral()
         ideal_integral = reso_histo_ideal.Integral()
-
         if R2_integral > 0:
           reso_histo_R2.Scale(1/R2_integral)
         if ideal_integral > 0:
@@ -91,11 +88,6 @@ for pt in pt_ranges:
         reso_histo_R2.GetYaxis().SetRangeUser(0,maximum * 1.2)
         reso_histo_ideal.GetYaxis().SetRangeUser(0, maximum * 1.2)
 
-        
-
-
-        
-
         #Draw plots to canvas
         reso_histo_R2.Draw("g P same")
         reso_histo_ideal.Draw("g P same")
@@ -111,20 +103,6 @@ for pt in pt_ranges:
         maximum = max(reso_histo_ideal.GetMaximum(), reso_histo_R2.GetMaximum())
         reso_histo_R2.GetYaxis().SetRangeUser(0,maximum * 1.2)
         reso_histo_ideal.GetYaxis().SetRangeUser(0, maximum * 1.2)
-
-
-        #Get gaussian fits and means of plots
-        # gauss_fit_R2 = reso_histo_R2.Fit('gaus', "S Q N", reso_histo_R2.GetName() + "_gauss", -.3, .3)
-        # if int(gauss_fit_R2) == -1: R2_mean = 0
-        # else: R2_mean = gauss_fit_R2.Parameters()[1]
-
-
-        # gauss_fit_ideal = reso_histo_ideal.Fit('gaus', "N S Q", reso_histo_ideal.GetName() + "_gauss", -.3, .3)      
-        # if int(gauss_fit_ideal) == -1: ideal_mean = 0
-        # else:
-        #   ideal_mean = gauss_fit_ideal.Parameters()[1]
-
-
 
         cms_label = cms_latex()
         header = head()
@@ -154,11 +132,6 @@ for pt in pt_ranges:
             upper = 2.4
 
         header.DrawLatexNDC(0.4, 0.83, "%s Gev < P_{T} < %s GeV, %s < #eta < %s" % (pt[:2], pt[-2:], lower, upper));
-
-        # stat_box = stats()
-
-        # stat_box.DrawLatexNDC(0.2, 0.63, "#mu_{R2} = %6.4f" % (R2_mean));
-        # stat_box.DrawLatexNDC(0.2, 0.59, "#mu_{IDEAL} = %6.4f" % (ideal_mean));
 
         #Save canvas as PDF
 
