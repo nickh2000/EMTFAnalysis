@@ -20,18 +20,17 @@ z_source  = "/afs/cern.ch/user/n/nhurley/CMSSW_12_4_6_emtfReEmul/src/EMTFNtuple_
 #This folder contains the LUTs that we want to correct
 #These should be the same LUTs used to generate the station_station_phi data
 global folder 
-folder = "/afs/cern.ch/user/n/nhurley/CMSSW_12_4_6_emtfReEmul/src/L1Trigger/L1TMuon/data/emtf_luts/ph_lut_run3_2022/"
+folder = "/afs/cern.ch/user/n/nhurley/CMSSW_12_4_6_emtfReEmul/src/L1Trigger/L1TMuon/data/emtf_luts/ph_lut_v3_data/"
 
 #This folder contains the output LUTs
 #This folder should contain all the same LUTs as "folder", however some of files will be later be changed when you run this script
 global output
 output = "/afs/cern.ch/user/n/nhurley/CMSSW_12_4_6_emtfReEmul/src/L1Trigger/L1TMuon/data/emtf_luts/ph_lut_custom/"
 
-
 #Obtain this file by running station_station_phi.py on EMTFNTuples generated with the LUTs used in folder (which we intend to correct)
 #This file will contain the distribution of station-station delta-phis for every station-transition and every sector
 global station_station_phi_data
-station_station_phi_data = "/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/alignment/station_station_phi_RunThree.root"
+station_station_phi_data = "/afs/cern.ch/user/n/nhurley/custom_alignment/plots/station_station_phi.root"
 
 #Used to obtain the z-values for the chambers
 evt_tree  = TChain('EMTFNtuple/tree')
@@ -536,7 +535,7 @@ def correct_from_data():
                 dphi_average = dphi.GetMean()
 
                 #Due to the non-linear nature of the d-phi average, the shift seems to need to be bigger than the average empirically (20%?)
-                d_phi_average[endcap][sector - 1][id] = dphi_average # * 1.2
+                d_phi_average[endcap][sector - 1][id] = dphi_average * 1.2
 
     #this approach is naive
     dphi_shift = np.zeros(shape = (2, 6, 4))
@@ -853,5 +852,5 @@ for endcap in range(2):
 
 
 #functions for writing shifts to new LUTs and validating with EMTFNtuple file
-#write_to_file()
+write_to_file()
 validate_LUT()

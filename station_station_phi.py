@@ -27,7 +27,8 @@ args = parser.parse_args()
 
 ## Configuration settings
 MAX_FILE =  -1         ## Maximum number of input files (use "-1" for unlimited)
-MAX_EVT  = -1       ## Maximum number of events to process
+MAX_EVT  = -1
+       ## Maximum number of events to process
 PRT_EVT  = 10000     ## Print every Nth event
 
 #which modes include which station-station indices (found below)
@@ -48,7 +49,7 @@ evt_tree  = TChain('EMTFNtuple/tree')
 d_phi_plots = np.zeros(shape = (2, 6, 7, 3), dtype=object)
 
 #do same but with chambers instead of sectors
-d_phi_chamber = np.zeros(shape = (2, 6, 36, 3), dtype=object)
+d_phi_chamber = np.zeros(shape = (2, 3, 6, 36, 3), dtype=object)
 num_bins = 75
 
 for endcap in range(2):
@@ -75,8 +76,9 @@ for endcap in range(2):
 
         #do same for chambers instead of sectors
         for chamber in range(36):
-            for charge in range(3):
-                d_phi_chamber[endcap][d][chamber][charge] = TH1D('d_phi_chamber_%s_%d_%d_c%d' % (str(d_phi_index_map[d]), endcap, chamber, charge - 1),  '', 128, -64, 64)
+            for ring in range(3):
+                for charge in range(3):
+                    d_phi_chamber[endcap][ring][d][chamber][charge] = TH1D('d_phi_chamber_%s_%d_%d_%d_c%d' % (str(d_phi_index_map[d]), endcap, ring, chamber, charge),  '', 128, -64, 64)
 
 #Just save arguments as variables 
 if args.num_jobs:
@@ -86,8 +88,8 @@ if args.num_jobs:
 
 #define output files
 if args.num_jobs:
-  try: out_file =  TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/station_station_phi_vEleven%d.root" % (INDEX), 'create')
-  except: out_file =  TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/station_station_phi_vEleven%d.root" % (INDEX), 'recreate')
+  try: out_file =  TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/station_station_phi_custom_chamber%d.root" % (INDEX), 'create')
+  except: out_file =  TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/station_station_phi_custom_chamber%d.root" % (INDEX), 'recreate')
 else:
   out_file = TFile('plots/high_eta_region/high_eta_study_Custom.root', 'recreate')
 
@@ -98,8 +100,8 @@ else:
 
 
 IDEAL = False
-RUN3 = True
-CUSTOM = False
+RUN3 = False
+CUSTOM = True
 
 if IDEAL:
     folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_SingleMuon_data_13p6TeV_idealAlignment/220902_142649/0000/"
@@ -114,7 +116,12 @@ elif CUSTOM:
     #folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_reverse_v2/221023_205023/"
     # folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_reverse_v3/221026_134022/0000/"
     # folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_reverse_v4/221026_174204/0000/"
-    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_2022C_v11/221028_095517/0000/"
+    #folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_2022C_v11/221028_095517/0000/"
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_2022C_v10/221027_083620/0000/"
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_chamber_v1/221109_095923/0000/"
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_chamber_v3/221109_220323/0000/"
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_chamber_v4/221110_130238/0000/"
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_2022C_v15/221111_132410/0000/"
 else:
     folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_Run2Alignment_2022C_v2/220920_155151/0000/"
     
@@ -179,15 +186,19 @@ for event in range(evt_tree.GetEntries()):
             #Fill dphi for specific sector, all charges
             d_phi_plots[evt_tree.emtfTrack_endcap[track] == 1][id][evt_tree.emtfTrack_sector[track]][0].Fill(d_phi)
 
+            if evt_tree.emtfHit_ring[hitref_1] == 4:
+                ring = 1
+            else: ring = evt_tree.emtfHit_ring[hitref_1]
+
             #Fill dphi for all chambers, all charges
-            d_phi_chamber[evt_tree.emtfTrack_endcap[track] == 1][id][evt_tree.emtfHit_chamber[hitref_1] - 1][0].Fill(d_phi)
+            d_phi_chamber[evt_tree.emtfTrack_endcap[track] == 1][ring-1][id][evt_tree.emtfHit_chamber[hitref_1] - 1][0].Fill(d_phi)
             charge = (evt_tree.emtfTrack_q[track] == 1) + 1
 
             #Fill dphi for specific charge, specific sector
             d_phi_plots[evt_tree.emtfTrack_endcap[track] == 1][id][evt_tree.emtfTrack_sector[track]][charge].Fill(d_phi)
             
             #Fill dphi for specific charge, specific sector
-            d_phi_chamber[evt_tree.emtfTrack_endcap[track] == 1][id][evt_tree.emtfHit_chamber[hitref_1] - 1][charge].Fill(d_phi)
+            d_phi_chamber[evt_tree.emtfTrack_endcap[track] == 1][ring - 1][id][evt_tree.emtfHit_chamber[hitref_1] - 1][charge].Fill(d_phi)
 
 
 #Write station-station phi plots to output file
@@ -197,8 +208,9 @@ for endcap in range(2):
             for charge in range(3):
                 d_phi_plots[endcap][d][sector][charge].Write()
         for chamber in range(36):
-            for charge in range(3):
-                d_phi_chamber[endcap][d][chamber][charge].Write()
+            for ring in range(3):
+                for charge in range(3):
+                    d_phi_chamber[endcap][ring][d][chamber][charge].Write()
 
 
 del out_file

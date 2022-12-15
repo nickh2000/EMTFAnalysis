@@ -47,6 +47,10 @@ for i in range(int(num_jobs)):
     sub2 = open(createName,'w')
     sub2.write(create+'\n')
     sub2.close() ## finish writing .sh file
-    i += 1
-    os.system('chmod 755 '+createName) ## make .sh file executable
-    os.system('condor_submit '+ submitName +' executable='+createName) ## submit the job using condor_submit command
+    os.system('chmod 755 '+createName + " &") ## make .sh file executable
+
+for i in range(int(num_jobs)):
+    if not i == int(num_jobs) - 1:
+        os.system('condor_submit '+ submitName +' executable='+createName + " &") ## submit the job using condor_submit command
+    else:
+        os.system('condor_submit '+ submitName +' executable='+createName) ## submit the job using condor_submit command

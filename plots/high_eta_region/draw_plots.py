@@ -27,12 +27,52 @@ def head():
   return header
 
 
-infile_R2 = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/high_eta_region/high_eta_study_reverse_v3.root")
+#infile_R2 = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/high_eta_region/high_eta_study_reverse_v3.root")
 #infile_R2 = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/high_eta_region/high_eta_study_phv3.root")
-#infile_custom = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/high_eta_region/high_eta_study_custom_vTen.root")
-infile_custom = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/high_eta_region/high_eta_study_custom_vEleven.root")
+infile_R2 = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/high_eta_region/high_eta_study_custom_vTen.root")
+infile_custom = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/high_eta_region/high_eta_study_custom_chamber.root")
+#infile_custom = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/high_eta_region/high_eta_study_custom_vFourteen.root")
 nFiles = 0
 
+
+
+pt_plot = infile_R2.Get('h_phi_err_EMTF_cut_3_1;1')
+canvas = TCanvas(pt_plot.GetName() , pt_plot.GetName(), 700,700)
+
+gPad.SetGridy(1)
+gPad.SetGridx(1)
+
+#Configure draw style of these plots
+pt_plot.SetLineWidth(2)
+
+pt_plot.SetMarkerColor(4)
+pt_plot.SetLineColor(4)
+
+pt_plot.SetMarkerStyle(21)
+
+pt_plot.SetMarkerSize(.5)
+
+
+#Draw plots to canvas
+pt_plot.Draw("AP same L")
+
+#X and Y axis labels
+pt_plot.GetXaxis().SetTitle("#phi");
+pt_plot.GetYaxis().SetTitle("Efficiency");
+pt_plot.GetYaxis().SetLabelSize(.03)
+
+
+#Title and header
+cms_label = cms_latex()
+header = head()
+
+#Set labels depending on endcap
+header.DrawLatexNDC(0.15, 0.53, "P_{T} > 3 GeV, 2.2 < #eta < 2.4");
+
+#Save canvas as PDF
+
+canvas.SaveAs("plots/high_eta_region/pdfs/%s.pdf" % ("cut_3_plot"))
+del canvas
 
 #Overlay efficiencies in high eta region w.r.t. phi
 for endcap in range(2):
@@ -64,7 +104,7 @@ for endcap in range(2):
   canvas = TCanvas(histo_R2.GetName() , histo_R2.GetName(), 700,700)
 
   leg = TLegend(0.63, 0.3, 0.83, 0.38)
-  leg.AddEntry(histo_R2, 'Run 2 Geometry', 'p')
+  leg.AddEntry(histo_R2, 'Run 3 Geometry', 'p')
 
   leg.AddEntry(histo_custom, 'Custom Geometry', 'p')
   leg.SetMargin(0.5)
@@ -93,7 +133,6 @@ for endcap in range(2):
   histo_R2.Draw("AP same L")
   histo_custom.Draw("p l same")
 
-
   #X and Y axis labels
   leg.Draw("same")
   histo_R2.GetXaxis().SetTitle("#phi");
@@ -112,13 +151,13 @@ for endcap in range(2):
 
   #Set labels depending on endcap
   if endcap == 1:
-    header.DrawLatexNDC(0.4, 0.53, "P_{T} < 22 GeV, 2.2 < #eta < 2.4");
+    header.DrawLatexNDC(0.45, 0.53, "P_{T} > 22 GeV, 2.2 < #eta < 2.4");
   else:
-    header.DrawLatexNDC(0.4, 0.53, "P_{T} < 22 GeV, -2.4 < #eta < -2.2");
+    header.DrawLatexNDC(0.55, 0.53, "P_{T} > 22 GeV, -2.4 < #eta < -2.2");
 
   #Draw overall average efficiency of geometry in high-eta region
-  header.DrawLatexNDC(0.2, 0.63, "#mu_{R2} = %6.4f" % (average_R2));
-  header.DrawLatexNDC(0.2, 0.59, "#mu_{Custom} = %6.4f" % (average_custom));
+  header.DrawLatexNDC(0.2, 0.53, "#mu_{R3} = %6.4f" % (average_R2));
+  header.DrawLatexNDC(0.2, 0.49, "#mu_{Custom} = %6.4f" % (average_custom));
 
   #Save canvas as PDF
 

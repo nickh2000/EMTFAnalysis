@@ -113,8 +113,8 @@ if args.num_jobs:
 
 #if we are parallelizing, use temporary chunked-outfiles
 if args.num_jobs:
-  try: out_file =  TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/eff_EMTF_custom%d.root" % (INDEX), 'recreate')
-  except: out_file =  TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/eff_EMTF_custom%d.root" % (INDEX), 'recreate')
+  try: out_file =  TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/eff_EMTF_custom_chamberTwo%d.root" % (INDEX), 'recreate')
+  except: out_file =  TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/eff_EMTF_custom_chamberTwo%d.root" % (INDEX), 'recreate')
 else:
   out_file = TFile('plots/alignment/alignment_study_single.root', 'recreate')
 
@@ -143,6 +143,9 @@ elif CUSTOM:
     #folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_2022C_v5/221017_105731/0000/"
     #folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_reverse_v4/221026_174204/0000/"
     folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_2022C_v10/221027_083620/0000/"
+    
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_2022C_v13/221031_221428/0000/"
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_chamber_v3/221109_220323/0000/"
 
 print(folder)
 #Get all of the event files in the directory

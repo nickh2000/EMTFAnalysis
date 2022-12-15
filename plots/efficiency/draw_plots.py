@@ -28,8 +28,8 @@ def head():
   return header
 
 
-infile_R2 = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/efficiency/eff_EMTF_custom.root")
-infile_R3 = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/efficiency/eff_EMTF_unpacked.root")
+infile_R2 = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/efficiency/eff_EMTF_custom_chamber.root")
+infile_R3 = TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/efficiency/eff_EMTF_RunThree.root")
 nFiles = 0
 
 

@@ -39,7 +39,7 @@ PRT_EVT  = 10000     ## Print every Nth event
 
 
 
-REQ_BX0    = True  ## Require reconstructed muon to be in BX 0  ## Require a final uGMT candidate, not just a TF muon
+REQ_BX0    = False  ## Require reconstructed muon to be in BX 0  ## Require a final uGMT candidate, not just a TF muon
 REQ_TIGHT = False ##Require reconstructed muon to be tight quality, not just medium
 MEDIUM_ONLY = False ## Require that muons be of medium quality but not of tight quality
 REQ_HLT = False ##Require muon to be included in the high-level trigger
@@ -108,8 +108,8 @@ if args.num_jobs:
     NUM_JOBS = int(args.num_jobs)
 
 if args.num_jobs:
-  try: out_file =  TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/high_eta_study_custom_vEleven%d.root" % (INDEX), 'create')
-  except: out_file =  TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/high_eta_study_custom_vEleven%d.root" % (INDEX), 'recreate')
+  try: out_file =  TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/high_eta_study_custom_%d.root" % (INDEX), 'create')
+  except: out_file =  TFile("/afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/high_eta_study_custom%d.root" % (INDEX), 'recreate')
 else:
   out_file = TFile('plots/high_eta_region/high_eta_study_CustomDispx.root', 'recreate')
 
@@ -132,6 +132,7 @@ if IDEAL:
     folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_SingleMuon_data_13p6TeV_idealAlignment/220902_142649/0000/"
 elif RUN3:
     folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_Run3Alignment_2022C_v5/220925_185603/0000/"
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_Run3Alignment_2022C_v2/220920_155409/0000/"
 elif CUSTOM:
     #folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_phlutv3data_2022C_v1/221020_181346/0000/"
     #folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_2022C_v9/221020_120011/0000/"
@@ -149,10 +150,19 @@ elif CUSTOM:
     #folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_reverse_v3/221026_134022/0000/"
     #folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_reverse_v4/221026_174204/0000/"
     
-    #This version has neighbors mapped to their neighbor chamber, correction from run2 geometry, (shifts also multiplied by 1.2)
+    #This version has neighbors mapped to their neighbor chamber (sector instead of rsector), correction from run2 geometry, (shifts also multiplied by 1.2), BEST ONE SO FAR
     folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_2022C_v10/221027_083620/0000/"
     #This version is a correction from Run3 geometry
     folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_2022C_v11/221028_095517/0000/"
+    #folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_2022C_v12/221031_131053/0000/"
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_2022C_v13/221031_221428/0000/"
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_2022C_v14/221101_094218/0000/"
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_chamber_v1/221109_095923/0000/"
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_chamber_v2/221109_141652/0000/" #good
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_chamber_v3/221109_220323/0000/" #no-neighbor
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_chamber_v4/221110_130238/0000/" #half-shift (avoid double counting?)
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_custom_chamber_v5/221112_194630/0000/"
+    folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_CustomAlignment_2022C_v15/221111_132410/0000/"
 
 else:
     #folder = "/eos/user/n/nhurley/Muon/EMTFNtuple_Run3_Muon_data_13p6TeV_Run2_2022C_v6/221017_155002/0000/"
@@ -162,7 +172,7 @@ else:
 #Get all of the event files in the directory
 nFiles = 0
 
-
+print("Using NTuples from: " + folder)
 #Flag for breaking loop if we hit max file limit
 break_loop = False
 
@@ -184,7 +194,6 @@ for dirname, dirs, files in os.walk(folder):
 
     #access root files in this subdirectory
     for file in file_list:
-        print(file)
         if break_loop: break
         if not '.root' in file: continue
         file_name = "%s/%s" % (dirname, file)
