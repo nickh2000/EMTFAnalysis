@@ -1,2 +1,0 @@
-Error in <TFile::TFile>: file /afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/2018compare49.root already exists
-SysError in <TFile::Flush>: error flushing file /afs/cern.ch/user/n/nhurley/EMTFAnalyzer/AWBTools/macros/plots/tmp/2018compare49.root No such file or directory

@@ -1,246 +1,45 @@
-* Loading file #1: /eos/user/n/nhurley/EphemeralZeroBias1/EMTFNtuple_Collisions18_EphemeralZeroBias1_data_13TeV_2018D_v1/221118_105323/0000/EMTFNtuple_9.root
-* Loading file #2: /eos/user/n/nhurley/EphemeralZeroBias2/EMTFNtuple_Collisions18_EphemeralZeroBias2_data_13TeV_2018D_v1/221118_105337/0000/EMTFNtuple_2.root
-* Loading file #3: /eos/user/n/nhurley/EphemeralZeroBias3/EMTFNtuple_Collisions18_EphemeralZeroBias3_data_13TeV_2018D_v1/221118_105352/0000/EMTFNtuple_2.root
-* Loading file #4: /eos/user/n/nhurley/EphemeralZeroBias4/EMTFNtuple_Collisions18_EphemeralZeroBias4_data_13TeV_2018D_v1/221118_105408/0000/EMTFNtuple_1-1.root
-* Loading file #5: /eos/user/n/nhurley/EphemeralZeroBias5/EMTFNtuple_Collisions18_EphemeralZeroBias5_data_13TeV_2018D_v1/221118_105424/0000/EMTFNtuple_1.root
-* Loading file #6: /eos/user/n/nhurley/EphemeralZeroBias6/EMTFNtuple_Collisions18_EphemeralZeroBias6_data_13TeV_2018D_v1/221118_105439/0000/EMTFNtuple_3.root
-* Loading file #7: /eos/user/n/nhurley/EphemeralZeroBias7/EMTFNtuple_Collisions18_EphemeralZeroBias7_data_13TeV_2018D_v1/221118_105455/0000/EMTFNtuple_9.root
-* Loading file #8: /eos/user/n/nhurley/EphemeralZeroBias8/EMTFNtuple_Collisions18_EphemeralZeroBias8_data_13TeV_2018D_v1/221118_105512/0000/EMTFNtuple_9.root
-* Loading file #1: /eos/user/n/nhurley/EphemeralZeroBias0/EMTFNtuple_Collisions22_EphemeralZeroBias0_data_13TeV_2022F_v1/221121_114311/0000/EMTFNtuple_79.root
-* Loading file #2: /eos/user/n/nhurley/EphemeralZeroBias0/EMTFNtuple_Collisions22_EphemeralZeroBias0_data_13TeV_2022F_v1/221121_114311/0000/EMTFNtuple_8.root
-* Loading file #3: /eos/user/n/nhurley/EphemeralZeroBias1/EMTFNtuple_Collisions22_EphemeralZeroBias1_data_13TeV_2022F_v1/221121_114326/0000/EMTFNtuple_79.root
-* Loading file #4: /eos/user/n/nhurley/EphemeralZeroBias1/EMTFNtuple_Collisions22_EphemeralZeroBias1_data_13TeV_2022F_v1/221121_114326/0000/EMTFNtuple_8.root
-* Loading file #5: /eos/user/n/nhurley/EphemeralZeroBias2/EMTFNtuple_Collisions22_EphemeralZeroBias2_data_13TeV_2022F_v1/221121_114341/0000/EMTFNtuple_79.root
-* Loading file #6: /eos/user/n/nhurley/EphemeralZeroBias2/EMTFNtuple_Collisions22_EphemeralZeroBias2_data_13TeV_2022F_v1/221121_114341/0000/EMTFNtuple_8.root
-* Loading file #7: /eos/user/n/nhurley/EphemeralZeroBias3/EMTFNtuple_Collisions22_EphemeralZeroBias3_data_13TeV_2022F_v1/221121_114355/0000/EMTFNtuple_7.root
-* Loading file #8: /eos/user/n/nhurley/EphemeralZeroBias3/EMTFNtuple_Collisions22_EphemeralZeroBias3_data_13TeV_2022F_v1/221121_114355/0000/EMTFNtuple_8.root
-* Loading file #9: /eos/user/n/nhurley/EphemeralZeroBias4/EMTFNtuple_Collisions22_EphemeralZeroBias4_data_13TeV_2022F_v1/221121_114411/0000/EMTFNtuple_85.root
-* Loading file #10: /eos/user/n/nhurley/EphemeralZeroBias4/EMTFNtuple_Collisions22_EphemeralZeroBias4_data_13TeV_2022F_v1/221121_114411/0000/EMTFNtuple_86.root
-* Loading file #11: /eos/user/n/nhurley/EphemeralZeroBias5/EMTFNtuple_Collisions22_EphemeralZeroBias5_data_13TeV_2022F_v1/221121_114430/0000/EMTFNtuple_73.root
-* Loading file #12: /eos/user/n/nhurley/EphemeralZeroBias5/EMTFNtuple_Collisions22_EphemeralZeroBias5_data_13TeV_2022F_v1/221121_114430/0000/EMTFNtuple_8.root
-* Loading file #13: /eos/user/n/nhurley/EphemeralZeroBias6/EMTFNtuple_Collisions22_EphemeralZeroBias6_data_13TeV_2022F_v1/221121_114446/0000/EMTFNtuple_92.root
-* Loading file #14: /eos/user/n/nhurley/EphemeralZeroBias6/EMTFNtuple_Collisions22_EphemeralZeroBias6_data_13TeV_2022F_v1/221121_114446/0000/EMTFNtuple_93.root
-* Loading file #15: /eos/user/n/nhurley/EphemeralZeroBias7/EMTFNtuple_Collisions22_EphemeralZeroBias7_data_13TeV_2022F_v1/221121_114503/0000/EMTFNtuple_76.root
-* Loading file #16: /eos/user/n/nhurley/EphemeralZeroBias7/EMTFNtuple_Collisions22_EphemeralZeroBias7_data_13TeV_2022F_v1/221121_114503/0000/EMTFNtuple_8.root
-* Loading file #17: /eos/user/n/nhurley/EphemeralZeroBias8/EMTFNtuple_Collisions22_EphemeralZeroBias8_data_13TeV_2022F_v1/221121_114520/0000/EMTFNtuple_74.root
-* Loading file #18: /eos/user/n/nhurley/EphemeralZeroBias8/EMTFNtuple_Collisions22_EphemeralZeroBias8_data_13TeV_2022F_v1/221121_114520/0000/EMTFNtuple_8.root
-eff_EMTF.py: Processing Job #49, Year 2018, Event #0
-eff_EMTF.py: Processing Job #49, Year 2018, Event #10000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #20000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #30000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #40000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #50000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #60000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #70000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #80000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #90000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #100000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #110000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #120000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #130000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #140000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #150000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #160000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #170000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #180000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #190000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #200000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #210000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #220000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #230000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #240000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #250000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #260000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #270000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #280000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #290000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #300000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #310000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #320000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #330000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #340000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #350000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #360000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #370000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #380000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #390000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #400000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #410000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #420000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #430000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #440000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #450000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #460000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #470000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #480000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #490000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #500000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #510000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #520000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #530000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #540000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #550000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #560000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #570000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #580000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #590000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #600000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #610000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #620000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #630000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #640000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #650000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #660000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #670000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #680000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #690000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #700000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #710000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #720000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #730000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #740000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #750000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #760000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #770000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #780000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #790000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #800000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #810000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #820000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #830000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #840000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #850000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #860000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #870000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #880000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #890000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #900000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #910000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #920000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #930000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #940000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #950000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #960000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #970000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #980000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #990000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1000000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1010000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1020000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1030000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1040000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1050000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1060000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1070000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1080000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1090000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1100000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1110000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1120000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1130000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1140000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1150000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1160000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1170000
-eff_EMTF.py: Processing Job #49, Year 2018, Event #1180000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #0
-eff_EMTF.py: Processing Job #49, Year 2022, Event #10000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #20000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #30000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #40000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #50000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #60000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #70000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #80000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #90000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #100000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #110000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #120000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #130000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #140000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #150000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #160000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #170000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #180000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #190000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #200000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #210000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #220000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #230000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #240000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #250000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #260000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #270000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #280000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #290000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #300000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #310000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #320000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #330000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #340000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #350000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #360000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #370000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #380000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #390000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #400000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #410000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #420000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #430000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #440000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #450000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #460000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #470000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #480000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #490000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #500000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #510000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #520000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #530000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #540000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #550000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #560000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #570000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #580000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #590000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #600000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #610000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #620000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #630000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #640000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #650000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #660000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #670000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #680000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #690000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #700000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #710000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #720000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #730000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #740000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #750000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #760000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #770000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #780000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #790000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #800000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #810000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #820000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #830000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #840000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #850000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #860000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #870000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #880000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #890000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #900000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #910000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #920000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #930000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #940000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #950000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #960000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #970000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #980000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #990000
-eff_EMTF.py: Processing Job #49, Year 2022, Event #1000000
+* Loading file #1: EMTF_MC_NTuple_SingleMu_new_neg_1.root
+* Loading file #2: EMTF_MC_NTuple_SingleMu_new_neg_100.root
+* Loading file #3: EMTF_MC_NTuple_SingleMu_new_neg_101.root
+* Loading file #4: EMTF_MC_NTuple_SingleMu_new_neg_102.root
+BDT.py: Processing Event #0
+BDT.py: Processing Event #10000
+BDT.py: Processing Event #20000
+BDT.py: Processing Event #30000
+BDT.py: Processing Event #40000
+BDT.py: Processing Event #50000
+BDT.py: Processing Event #60000
+BDT.py: Processing Event #70000
+BDT.py: Processing Event #80000
+BDT.py: Processing Event #90000
+BDT.py: Processing Event #100000
+BDT.py: Processing Event #110000
+BDT.py: Processing Event #120000
+BDT.py: Processing Event #130000
+BDT.py: Processing Event #140000
+BDT.py: Processing Event #150000
+BDT.py: Processing Event #160000
+BDT.py: Processing Event #170000
+BDT.py: Processing Event #180000
+BDT.py: Processing Event #190000
+BDT.py: Processing Event #200000
+BDT.py: Processing Event #210000
+BDT.py: Processing Event #220000
+BDT.py: Processing Event #230000
+BDT.py: Processing Event #240000
+BDT.py: Processing Event #250000
+BDT.py: Processing Event #260000
+BDT.py: Processing Event #270000
+BDT.py: Processing Event #280000
+BDT.py: Processing Event #290000
+BDT.py: Processing Event #300000
+BDT.py: Processing Event #310000
+BDT.py: Processing Event #320000
+BDT.py: Processing Event #330000
+BDT.py: Processing Event #340000
+BDT.py: Processing Event #350000
+BDT.py: Processing Event #360000
+BDT.py: Processing Event #370000
+BDT.py: Processing Event #380000
+BDT.py: Processing Event #390000
+RMSE: 0.687782
